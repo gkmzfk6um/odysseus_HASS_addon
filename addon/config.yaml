@@ -1,0 +1,56 @@
+﻿name: "Odysseus AI Assistant"
+version: "0.1.0"
+slug: "odysseus_ai"
+description: >
+  A Python-based AI Assistant WebUI with local LLM and RAG support.
+  Connects to Ollama, SearXNG, and optionally ChromaDB.
+url: "https://github.com/pewdiepie-archdaemon/odysseus"
+arch:
+  - aarch64
+  - amd64
+startup: services
+services:
+  - "searxng"
+init: false
+ingress: true
+ingress_port: 7000
+ingress_entry: "/"
+panel_icon: "mdi:robot-outline"
+panel_title: "Odysseus"
+panel_admin: false
+auth_api: false
+host_network: false
+ports:
+  7000/tcp: 7000
+ports_description:
+  7000/tcp: "Odysseus WebUI (also available via Ingress)"
+map:
+  - data:rw
+options:
+  OLLAMA_BASE_URL: "http://localhost:11434"
+  SEARXNG_BASE_URL: "http://localhost:8080"
+  CHROMA_HOST: "localhost"
+  CHROMA_PORT: 8000
+  LLM_MODEL: "qwen2.5:7b"
+  EMBEDDING_MODEL: "BAAI/bge-small-en-v1.5"
+  ODYSSEUS_DATA_DIR: "/data/odysseus"
+  LOG_LEVEL: "info"
+schema:
+  OLLAMA_BASE_URL: str
+  SEARXNG_BASE_URL: str
+  CHROMA_HOST: str
+  CHROMA_PORT: int
+  LLM_MODEL: str
+  EMBEDDING_MODEL: str
+  ODYSSEUS_DATA_DIR: str
+  LOG_LEVEL: "list(info|debug|warning|error|critical)"
+environment:
+  OLLAMA_BASE_URL: "http://localhost:11434"
+  SEARXNG_BASE_URL: "http://localhost:8080"
+  CHROMA_HOST: "localhost"
+  CHROMA_PORT: "8000"
+  LLM_MODEL: "qwen2.5:7b"
+  EMBEDDING_MODEL: "BAAI/bge-small-en-v1.5"
+  ODYSSEUS_DATA_DIR: "/data/odysseus"
+  LOG_LEVEL: "info"
+  ODYSSEUS_INPROCESS_TASKS: "1"
