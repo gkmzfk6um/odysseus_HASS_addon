@@ -3,6 +3,30 @@
 A Python-based AI Assistant WebUI with local LLM and RAG support.  
 Connects to **Ollama**, **SearXNG**, and optionally **ChromaDB** for a full local AI stack.
 
+## Quick Install
+
+Add this repository to your Home Assistant Add-on Store:
+
+1. In Home Assistant, go to **Settings → Add-ons → Add-on Store**.
+2. Click the three-dot menu → **Repositories**.
+3. Enter: `https://github.com/pewdiepie-archdaemon/odysseus`
+4. Click **Add** — the **Odysseus AI Assistant** add-on will appear under the store.
+5. Install with the defaults or configure Ollama URL, SearXNG URL, and model tags on the **Configuration** tab.
+
+You can also manually copy this `addon/` folder into your HA Supervisor `addons/local/odysseus/` directory if you prefer to keep it local.
+
+## Hardware Requirements
+
+| Tier       | RAM          | CPU                  | Disk        | Notes                                          |
+|------------|--------------|----------------------|-------------|------------------------------------------------|
+| Minimum    | 8 GB         | 4-core ARM64 / x86   | 20 GB free  | 3B Q4 model, no ChromaDB, CPU-only             |
+| Recommended| 16 GB+       | 8+ core              | SSD         | 7B+ models, ChromaDB, SearXNG, ntfy, Cookbook  |
+
+- The add-on alone uses ~500 MB idle; the model is the heavy part.
+- A 7B Q4_K_M model needs roughly 4–5 GB, so 8 GB hosts should pick a 3B model or connect to a remote Ollama instance.
+- ARM64 (Raspberry Pi 5, HA Green/Yellow) is fully supported; inference speed depends on core count and RAM bandwidth.
+- GPU passthrough is not available inside HA OS add-ons; for GPU-accelerated Cookbook serving, run Odysseus in Docker or natively on the host.
+
 ## Requirements
 
 | Service   | Add-on / Source                                      | Required | Notes                                                                            |
@@ -29,8 +53,8 @@ All options are set in the HA Supervisor UI under **Add-ons -> Odysseus -> Confi
 | SEARXNG_BASE_URL    | http://localhost:8080            | SearXNG instance URL                                            |
 | CHROMA_HOST         | localhost                        | ChromaDB host (leave on localhost to auto-detect or skip)       |
 | CHROMA_PORT         | 8000                             | ChromaDB port                                                   |
-| LLM_MODEL           | qwen2.5:7b                       | Default LLM model tag                                           |
-| EMBEDDING_MODEL     | BAAI/bge-small-en-v1.5           | Embedding model for RAG and memory                              |
+| LLM_MODEL           | —                                | LLM model tag (must match an Ollama model you have pulled)      |
+| EMBEDDING_MODEL     | —                                | Embedding model for RAG and memory                              |
 | ODYSSEUS_DATA_DIR   | /data/odysseus                   | Persistent data path                                            |
 | LOG_LEVEL           | info                             | debug, info, warning, error, critical                           |
 
@@ -60,11 +84,4 @@ This provides a dedicated vector database that survives independently of Odysseu
 
 ## Building Locally
 
-```bash
-cd addon
-docker build -t local/odysseus-addon .
-```
 
-## License
-
-Odysseus is MIT-licensed. This add-on packaging is provided under the same license.

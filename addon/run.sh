@@ -2,7 +2,7 @@
 set -e
 
 # =============================================================================
-# Odysseus Home Assistant OS Add-on — Startup Script
+# Odysseus Home Assistant OS Add-on ï¿½ Startup Script
 # =============================================================================
 # Maps HA Supervisor options to the environment variables Odysseus reads
 # via python-dotenv (app.py). See README.md for variable documentation.
@@ -81,7 +81,7 @@ cat > "${ENV_FILE}" <<'DOTENV'
 
 # LLM
 OLLAMA_BASE_URL=${OLLAMA_URL}
-LLM_MODEL=${LLM_MODEL:-qwen2.5:7b}
+LLM_MODEL=${LLM_MODEL:-}
 
 # Search
 SEARXNG_INSTANCE=${SEARXNG_URL}
