@@ -1,1 +1,15 @@
-{"name":"Odysseus AI Assistant Repository","url":"https://github.com/pewdiepie-archdaemon/odysseus","maintainer":"Odysseus Team","addons":[{"name":"Odysseus AI Assistant","slug":"odysseus","description":"A self-hosted AI workspace — chat, agents, memory, documents, email, calendar, deep research, and more. Connects to Ollama, SearXNG, and optionally ChromaDB.","url":"https://github.com/pewdiepie-archdaemon/odysseus/tree/main/addon","arch":["aarch64","amd64"],"path":"addon"}]}
+{
+  "name": "Odysseus AI Assistant Repository",
+  "url": "https://github.com/gkmzfk6um/odysseus_HASS_addon",
+  "maintainer": "Odysseus Team",
+  "addons": [
+    {
+      "name": " ",
+      "slug": "odysseus",
+      "description": "A self-hosted AI workspace — chat, agents, memory, documents, email, calendar, deep research, and more. Connects to Ollama, SearXNG, and optionally ChromaDB.",
+      "url": "https://github.com/gkmzfk6um/odysseus_HASS_addon/tree/main/addon",
+      "arch": ["aarch64", "amd64"],
+      "path": "addon"
+    }
+  ]
+}
