@@ -1,0 +1,40 @@
+Erstelle ein Home Assistant OS Add-on für Odysseus (AI Assistant WebUI).
+
+## Anforderungen
+
+### Basis
+- Python-basiertes WebUI (aktuelles Odysseus aus dem GitHub-Repo)
+- Läuft auf HA OS (Alpine Linux Basis)
+- Architektur: aarch64 / amd64
+
+### Konfiguration (config.yaml)
+- Port: 7000 (in HA ingression oder als Host-Netzwerk)
+- Umgebungsvariablen über HA-Oberfläche konfigurierbar:
+  - OLLAMA_BASE_URL (default: http://ha:11434)
+  - SEARXNG_BASE_URL (default: http://ha:8080)
+  - CHROMA_HOST (default: http://ha:8000)
+  - LLM_MODEL (default: qwen2.5:7b)
+  - EMBEDDING_MODEL (default: BAAI/bge-small-en-v1.5)
+  - ODYSSEUS_DATA_DIR (default: /data/odysseus)
+  - Log-Level
+- auth_api: false (Add-on läuft hinter HA Auth)
+- Persistent storage: /data für Konfig, Datenbank, Uploads
+- Startreihenfolge: nach ChromaDB und SearXNG
+
+### Dockerfile
+- Basis: python:3.12-slim
+- Odysseus aus GitHub klonen (eigenen Fork verwenden)
+- Node.js 20+ für Frontend-Build (vite)
+- Abhängigkeiten: fastembed (für lokale embeddings fallback), chromadb-client
+- Healthcheck auf /health oder /api/health
+- Non-root User
+
+### run.sh
+- Init-Skript, das Konfiguration aus der HA-Oberfläche als .env anlegt
+- Odysseus starten
+- Auf SIGTERM sauber herunterfahren
+
+### Optional (nice to have)
+- Ingression-Unterstützung (Tab in HA-Seitenleiste)
+- Panel-Modus: true
+- Home Assistant Discovery: LLM-API als Konversations-Agent anbieten
